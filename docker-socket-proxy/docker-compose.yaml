@@ -1,0 +1,10 @@
+services:
+  dozzle_proxy:
+    container_name: dozzle_proxy
+    image: ghcr.io/tecnativa/docker-socket-proxy:v0.4.1
+    restart: unless-stopped
+    env_file: dozzle_proxy.env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "127.0.0.1:2375:2375" 
