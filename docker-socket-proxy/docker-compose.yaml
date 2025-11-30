@@ -14,7 +14,7 @@ services:
         timeout: 30s
         retries: 5
         start_period: 30s
-      env_file: dozzle.env
+      env_file: dozzle_agent.env
       networks:
         - dozzle
 networks:
