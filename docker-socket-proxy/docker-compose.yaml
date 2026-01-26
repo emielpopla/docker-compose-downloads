@@ -1,7 +1,7 @@
 services:
     dozzle_agent:
       container_name: dozzle_agent
-      image: amir20/dozzle:v9.0.1
+      image: amir20/dozzle:v9.0.3
       command: agent
       restart: unless-stopped
       volumes:
