@@ -1,0 +1,35 @@
+services:
+  gluetun:
+    container_name: gluetun
+    image: ghcr.io/qdm12/gluetun:v3.41.0
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    env_file: gluetun.env
+    volumes:
+      - gluetun-data:/gluetun
+    ports:
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    networks:
+        - downloads
+
+  qbittorrent:
+    container_name: qbittorrent
+    image: ghcr.io/linuxserver/qbittorrent:5.1.4
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    env_file: qbittorrent.env
+    volumes:
+      - qbittorrent-config:/config
+      - /mnt/mounted_shares/Downloads:/downloads
+    depends_on:
+      gluetun:
+        condition: service_healthy
+
+networks:
+  downloads:
+    external: true
