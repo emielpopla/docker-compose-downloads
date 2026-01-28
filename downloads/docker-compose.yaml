@@ -24,7 +24,7 @@ services:
     network_mode: "service:gluetun"
     env_file: qbittorrent.env
     volumes:
-      - ./qbittorrent-config:/config
+      - ./qbittorrent-data:/config/dBittorrent
       - /mnt/mounted_shares/Downloads:/downloads
     depends_on:
       gluetun:
