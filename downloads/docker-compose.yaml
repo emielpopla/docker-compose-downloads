@@ -7,7 +7,7 @@ services:
       - NET_ADMIN
     env_file: gluetun.env
     volumes:
-      - gluetun-data:/gluetun
+      - ./gluetun-data:/gluetun
     ports:
       - 8080:8080
       - 6881:6881
@@ -24,7 +24,7 @@ services:
     network_mode: "service:gluetun"
     env_file: qbittorrent.env
     volumes:
-      - qbittorrent-config:/config
+      - ./qbittorrent-config:/config
       - /mnt/mounted_shares/Downloads:/downloads
     depends_on:
       gluetun:
