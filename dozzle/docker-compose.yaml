@@ -2,6 +2,7 @@ services:
     dozzle_agent:
       container_name: dozzle_agent
       image: amir20/dozzle:v9.0.3
+      pull_policy: missing
       command: agent
       restart: unless-stopped
       volumes:

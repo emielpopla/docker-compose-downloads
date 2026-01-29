@@ -3,6 +3,7 @@ services:
     container_name: gluetun
     image: ghcr.io/qdm12/gluetun:v3.41.0
     restart: unless-stopped
+    pull_policy: missing
     cap_add:
       - NET_ADMIN
     env_file: gluetun.env
@@ -24,6 +25,7 @@ services:
   qbittorrent:
     container_name: qbittorrent
     image: ghcr.io/linuxserver/qbittorrent:5.1.4
+    pull_policy: missing
     restart: unless-stopped
     network_mode: "service:gluetun"
     env_file: qbittorrent.env
@@ -37,6 +39,7 @@ services:
   prowlarr:
     container_name: prowlarr
     image: ghcr.io/hotio/prowlarr:latest
+    pull_policy: always
     restart: unless-stopped
     network_mode: "service:gluetun"
     env_file: prowlarr.env
@@ -46,6 +49,7 @@ services:
   radarr:
     container_name: radarr
     image: ghcr.io/hotio/radarr:latest
+    pull_policy: always
     restart: unless-stopped
     network_mode: "service:gluetun"
     env_file: radarr.env
@@ -56,6 +60,7 @@ services:
   sonarr:
     container_name: sonarr
     image: ghcr.io/hotio/sonarr:latest
+    pull_policy: always
     restart: unless-stopped
     network_mode: "service:gluetun"
     env_file: sonarr.env
@@ -66,6 +71,7 @@ services:
   bazarr:
     container_name: bazarr
     image: ghcr.io/hotio/bazarr:latest
+    pull_policy: always
     restart: unless-stopped
     network_mode: "service:gluetun"
     env_file: bazarr.env
