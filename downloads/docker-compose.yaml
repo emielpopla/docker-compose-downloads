@@ -45,6 +45,12 @@ services:
     env_file: prowlarr.env
     volumes:
       - ./prowlarr-data:/config
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9696"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 5
     depends_on:
       gluetun:
         condition: service_healthy
@@ -60,6 +66,12 @@ services:
       - ./radarr-data:/config
       - /mnt/mounted_shares/Downloads:/media/downloads
       - /mnt/mounted_shares/Movies:/media/movies
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7878"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 5
     depends_on:
       gluetun:
         condition: service_healthy
@@ -75,6 +87,12 @@ services:
       - ./sonarr-data:/config
       - /mnt/mounted_shares/Downloads:/media/downloads
       - /mnt/mounted_shares/Series:/media/series
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8989"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 5
     depends_on:
       gluetun:
         condition: service_healthy
@@ -90,6 +108,12 @@ services:
       - ./bazarr-data:/config
       - /mnt/mounted_shares/Movies:/media/movies
       - /mnt/mounted_shares/Series:/media/series
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6767"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 5
     depends_on:
       gluetun:
         condition: service_healthy
@@ -129,6 +153,12 @@ services:
     env_file: huntarr.env
     networks:
       - downloads
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9705"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 5
     depends_on:
       radarr:
         condition: service_healthy
@@ -147,6 +177,12 @@ services:
     env_file: profilarr.env
     networks:
       - downloads
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6868"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 5
     depends_on:
       radarr:
         condition: service_healthy
