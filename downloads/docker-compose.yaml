@@ -54,8 +54,9 @@ services:
     network_mode: "service:gluetun"
     env_file: radarr.env
     volumes:
-      - ./radarr-config:/config
-      - ./radarr-data:/data
+      - ./radarr-data:/config
+      - /mnt/mounted_shares/Downloads:/media/downloads
+      - /mnt/mounted_shares/Movies:/media/movies
 
   sonarr:
     container_name: sonarr
@@ -65,8 +66,9 @@ services:
     network_mode: "service:gluetun"
     env_file: sonarr.env
     volumes:
-      - ./sonarr-config:/config
-      - ./sonarr-data:/data
+      - ./sonarr-data:/config
+      - /mnt/mounted_shares/Downloads:/media/downloads
+      - /mnt/mounted_shares/Series:/media/series
 
   bazarr:
     container_name: bazarr
@@ -76,8 +78,9 @@ services:
     network_mode: "service:gluetun"
     env_file: bazarr.env
     volumes:
-      - ./bazarr-config:/config
-      - ./bazarr-data:/data
+      - ./bazarr-data:/config
+      - /mnt/mounted_shares/Movies:/media/movies
+      - /mnt/mounted_shares/Series:/media/series
 
 networks:
   downloads:
