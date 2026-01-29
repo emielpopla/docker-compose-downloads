@@ -117,6 +117,24 @@ services:
       prowlarr:
         condition: service_healthy
 
+  huntarr:
+    container_name: huntarr
+    image: ghcr.io/plexguide/huntarr:9.0.5
+    pull_policy: missing
+    restart: unless-stopped
+    ports:
+      - 9705:9705
+    volumes:
+      - ./huntarr-data:/config
+    env_file: huntarr.env
+    networks:
+      - downloads
+    depends_on:
+      radarr:
+        condition: service_healthy
+      sonarr:
+        condition: service_healthy
+
 networks:
   downloads:
     external: true
