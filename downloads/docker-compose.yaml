@@ -135,6 +135,23 @@ services:
       sonarr:
         condition: service_healthy
 
+  profilarr:
+    container_name: profilarr
+    image: santiagosayshey/profilarr:v1.1.3
+    pull_policy: missing
+    restart: unless-stopped
+    ports:
+      - 6868:6868
+    volumes:
+      - ./profilarr-data:/config
+    env_file: profilarr.env
+    networks:
+      - downloads
+    depends_on:
+      radarr:
+        condition: service_healthy
+      sonarr:
+        condition: service_healthy
 networks:
   downloads:
     external: true
