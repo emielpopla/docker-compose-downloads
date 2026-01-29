@@ -9,9 +9,10 @@ services:
     volumes:
       - ./gluetun-data:/gluetun
     ports:
-      - 8080:8080
-      - 6881:6881
-      - 6881:6881/udp
+      - 8080:8080       # qBittorrent WebUI
+      - 6881:6881       # qBittorrent tcp downloads
+      - 6881:6881/udp   # qBittorrent udp downloads
+      - 9696:9696       # Prowlarr
     devices:
       - /dev/net/tun:/dev/net/tun
     networks:
@@ -29,6 +30,15 @@ services:
     depends_on:
       gluetun:
         condition: service_healthy
+
+  prowlarr:
+    container_name: prowlarr
+    image: ghcr.io/hotio/prowlarr:latest
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    env_file: prowlarr.env
+    volumes:
+      - ./prowlarr-data:/config
 
 networks:
   downloads:
