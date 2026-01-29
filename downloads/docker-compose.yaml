@@ -13,6 +13,9 @@ services:
       - 6881:6881       # qBittorrent tcp downloads
       - 6881:6881/udp   # qBittorrent udp downloads
       - 9696:9696       # Prowlarr
+      - 7878:7878       # Radarr
+      - 8989:8989       # Sonarr
+      - 6767:6767       # Bazarr
     devices:
       - /dev/net/tun:/dev/net/tun
     networks:
@@ -39,6 +42,36 @@ services:
     env_file: prowlarr.env
     volumes:
       - ./prowlarr-data:/config
+
+  radarr:
+    container_name: radarr
+    image: ghcr.io/hotio/radarr:latest
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    env_file: radarr.env
+    volumes:
+      - ./radarr-config:/config
+      - ./radarr-data:/data
+
+  sonarr:
+    container_name: sonarr
+    image: ghcr.io/hotio/sonarr:latest
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    env_file: sonarr.env
+    volumes:
+      - ./sonarr-config:/config
+      - ./sonarr-data:/data
+
+  bazarr:
+    container_name: bazarr
+    image: ghcr.io/hotio/bazarr:latest
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    env_file: bazarr.env
+    volumes:
+      - ./bazarr-config:/config
+      - ./bazarr-data:/data
 
 networks:
   downloads:
