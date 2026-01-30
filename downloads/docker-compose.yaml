@@ -102,7 +102,6 @@ services:
     image: ghcr.io/hotio/bazarr:latest
     pull_policy: always
     restart: unless-stopped
-    user: 1003:987
     network_mode: "service:gluetun"
     env_file: bazarr.env
     volumes:
