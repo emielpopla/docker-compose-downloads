@@ -188,6 +188,28 @@ services:
         condition: service_healthy
       sonarr:
         condition: service_healthy
+
+  pinchflat:
+    container_name: pinchflat
+    image: ghcr.io/kieraneglin/pinchflat:latest
+    pull_policy: always
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    ports:
+      - 8945:8945
+    volumes:
+      - ./pinchflat-data:/config:rw
+      - /mnt/mounted_shares/Youtube:/downloads:rw
+    env_file: pinchflat.env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8945"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 5
+    depends_on:
+      gluetun:
+        condition: service_healthy
 networks:
   downloads:
     external: true
