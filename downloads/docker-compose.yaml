@@ -17,6 +17,7 @@ services:
       - 7878:7878       # Radarr
       - 8989:8989       # Sonarr
       - 6767:6767       # Bazarr
+      - 8945:8945       # Pinchflat
     devices:
       - /dev/net/tun:/dev/net/tun
     networks:
@@ -195,8 +196,6 @@ services:
     pull_policy: always
     restart: unless-stopped
     network_mode: "service:gluetun"
-    ports:
-      - 8945:8945
     volumes:
       - ./pinchflat-data:/config:rw
       - /mnt/mounted_shares/Youtube:/downloads:rw
