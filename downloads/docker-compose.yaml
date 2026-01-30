@@ -8,7 +8,7 @@ services:
       - NET_ADMIN
     env_file: gluetun.env
     volumes:
-      - ./gluetun-data:/gluetun
+      - ./gluetun-data:/gluetun:rw
     ports:
       - 8080:8080       # qBittorrent WebUI
       - 6881:6881       # qBittorrent tcp downloads
@@ -30,8 +30,8 @@ services:
     network_mode: "service:gluetun"
     env_file: qbittorrent.env
     volumes:
-      - ./qbittorrent-data:/config/qBittorrent
-      - /mnt/mounted_shares/Downloads:/downloads
+      - ./qbittorrent-data:/config/qBittorrent:rw
+      - /mnt/mounted_shares/Downloads:/downloads:rw
     depends_on:
       gluetun:
         condition: service_healthy
@@ -44,7 +44,7 @@ services:
     network_mode: "service:gluetun"
     env_file: prowlarr.env
     volumes:
-      - ./prowlarr-data:/config
+      - ./prowlarr-data:/config:rw
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9696"]
       interval: 30s
@@ -63,9 +63,9 @@ services:
     network_mode: "service:gluetun"
     env_file: radarr.env
     volumes:
-      - ./radarr-data:/config
-      - /mnt/mounted_shares/Downloads:/media/downloads
-      - /mnt/mounted_shares/Movies:/media/movies
+      - ./radarr-data:/config:rw
+      - /mnt/mounted_shares/Downloads:/media/downloads:rw
+      - /mnt/mounted_shares/Movies:/media/movies:rw
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:7878"]
       interval: 30s
@@ -84,9 +84,9 @@ services:
     network_mode: "service:gluetun"
     env_file: sonarr.env
     volumes:
-      - ./sonarr-data:/config
-      - /mnt/mounted_shares/Downloads:/media/downloads
-      - /mnt/mounted_shares/Series:/media/series
+      - ./sonarr-data:/config:rw
+      - /mnt/mounted_shares/Downloads:/media/downloads:rw
+      - /mnt/mounted_shares/Series:/media/series:rw
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8989"]
       interval: 30s
@@ -105,9 +105,9 @@ services:
     network_mode: "service:gluetun"
     env_file: bazarr.env
     volumes:
-      - ./bazarr-data:/config
-      - /mnt/mounted_shares/Movies:/media/movies
-      - /mnt/mounted_shares/Series:/media/series
+      - ./bazarr-data:/config:rw
+      - /mnt/mounted_shares/Movies:/media/movies:rw
+      - /mnt/mounted_shares/Series:/media/series:rw
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:6767"]
       interval: 30s
@@ -126,8 +126,8 @@ services:
     ports:
       - 11011:11011
     volumes:
-      - ./cleanuparr-data:/config
-      - /mnt/mounted_shares/Downloads:/downloads
+      - ./cleanuparr-data:/config:rw
+      - /mnt/mounted_shares/Downloads:/downloads:rw
     env_file: cleanuparr.env
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:11011/health"]
@@ -149,7 +149,7 @@ services:
     ports:
       - 9705:9705
     volumes:
-      - ./huntarr-data:/config
+      - ./huntarr-data:/config:rw
     env_file: huntarr.env
     networks:
       - downloads
@@ -173,7 +173,7 @@ services:
     ports:
       - 6868:6868
     volumes:
-      - ./profilarr-data:/config
+      - ./profilarr-data:/config:rw
     env_file: profilarr.env
     networks:
       - downloads
