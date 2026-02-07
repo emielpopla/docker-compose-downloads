@@ -144,7 +144,7 @@ services:
 
   huntarr:
     container_name: huntarr
-    image: ghcr.io/plexguide/huntarr:9.0.5
+    image: ghcr.io/plexguide/huntarr:9.2.3
     pull_policy: missing
     restart: unless-stopped
     ports:
